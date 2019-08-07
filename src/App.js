@@ -4,8 +4,9 @@ import NavBar from './NavBar';
 import Home from './Home';
 import BlogPost from './BlogPost';
 import BlogForm from './BlogForm';
+import NotFound from './NotFound'
 import './App.css';
-import { stat } from 'fs';
+
 
 /** App
  * 
@@ -36,8 +37,8 @@ class App extends Component {
 
   addPost(newPostObj) {
     const { id, ...content } = newPostObj;
-    this.setState(state =>({
-      blogs: {...state.blogs, [id]: content }
+    this.setState(state => ({
+      blogs: { ...state.blogs, [id]: content }
     }))
   }
 
@@ -46,31 +47,40 @@ class App extends Component {
    */
   editPost(editedPostObj) {
     const { id, ...content } = editedPostObj;
-    this.setState(state =>({
-      blogs: {...state.blogs, [id]: content }
+    this.setState(state => ({
+      blogs: { ...state.blogs, [id]: content }
     }))
 
   }
 
   /** given post id, delete post from state */
   deletePost(id) {
-    if(this.state.blogs[id]===undefined){
+    if (this.state.blogs[id] === undefined) {
       return
     }
-    let copiedBlogs = {...this.state.blogs};
+    let copiedBlogs = { ...this.state.blogs };
     delete copiedBlogs[id];
 
-    this.setState(state =>({
+    this.setState(state => ({
       blogs: copiedBlogs
     }))
   }
 
   render() {
+
     return (
       <div className="App">
         <NavBar />
         <Switch>
-          <Route></Route>
+          <Route exact path="/" render={() => <Home blogs={this.state.blogs} />} />
+          <Route exact path="/:id" render={(rtProps) =>
+            <BlogPost
+              id={rtProps.match.params.id}
+              edit={this.editPost}
+              delete={this.deletePost}
+              blogs={this.state.blogs} />} />
+          <Route exact path="/new" render={() => <BlogForm add={this.addPost} />} />
+          <Route render={() => <NotFound />} />
         </Switch>
       </div>
     )

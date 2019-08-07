@@ -17,6 +17,8 @@ Form submit
 - new (this.addPost)
 - edit (this.editPost, this.blogContents)
 
+
+
 - state holds blog content = {
     id : {
         title: string
@@ -32,6 +34,12 @@ Form submit
 - Map through this.props.blogs and creates Cards, whose titles are links to "/:id"
 
 ###BlogForm - (needs rtProps.history, addPost method) 
+NEW POST MODE
+this.props.add 
+EDIT POST MODE
+this.props.edit
+this.props.content
+
 - handleChange
 - handleSubmit => invoke prop function (Blogs addPost) to add post to Parent state 
 Two buttons
