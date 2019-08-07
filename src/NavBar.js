@@ -6,8 +6,7 @@ import { Navbar, Nav, NavItem } from 'reactstrap';
 
 class NavBar extends Component {
   render() {
-    //console.log("got to nav bar render");
-    //debugger; // is numItems working?
+
     return (
       <div>
         <Navbar expand="md">
@@ -17,7 +16,7 @@ class NavBar extends Component {
 
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink to="/cart/">Cart ({this.props.numItems})</NavLink>
+              <NavLink to="/new/">Add a New Post</NavLink>
             </NavItem>
           </Nav>
 
@@ -26,3 +25,5 @@ class NavBar extends Component {
     );
   }
 }
+
+export default NavBar
