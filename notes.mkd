@@ -1,3 +1,38 @@
+## WORK IN PROGRESS
+AFTER LUNCH -- work on edit form functionality
+- populating form with current blog content
+- showing the correct form (add vs. edit)
+
+###BlogForm - (needs rtProps.history, addPost method) 
+NEW POST MODE
+this.props.add 
+EDIT POST MODE
+this.props.edit
+this.props.content
+
+- handleChange
+- handleSubmit => invoke prop function (Blogs addPost) to add post to Parent state 
+Two buttons
+- Save, history.push("/")
+- Cancel, history.push("/") OR redirect
+
+###BlogPost (needs editPost and deletePost method)
+## props: id, edit, delete, blogs
+- Content <h1><p>
+- Edit button => invoke prop function (Blogs editPost) to edit post in Parent state
+- Delete button => invoke prop fuction (Blogs deletePost) to delete post from Parent state
+- props = blog content from parent Blogs
+- state = {
+    editing: false/true
+}
+
+rendered content is dependent on a flag?
+edit --> show edit form (populated with current blog contents)
+
+
+
+
+## DONE
 Components
 ###index.js
 <BrowserRouter><App>
@@ -32,32 +67,6 @@ Form submit
 
 ###Home
 - Map through this.props.blogs and creates Cards, whose titles are links to "/:id"
-
-###BlogForm - (needs rtProps.history, addPost method) 
-NEW POST MODE
-this.props.add 
-EDIT POST MODE
-this.props.edit
-this.props.content
-
-- handleChange
-- handleSubmit => invoke prop function (Blogs addPost) to add post to Parent state 
-Two buttons
-- Save, history.push("/")
-- Cancel, history.push("/") OR redirect
-
-###BlogPost (needs editPost and deletePost method)
-- Content <h1><p>
-- Edit button => invoke prop function (Blogs editPost) to edit post in Parent state
-- Delete button => invoke prop fuction (Blogs deletePost) to delete post from Parent state
-- props = blog content from parent Blogs
-- state = {
-    editing: false/true
-}
-
-rendered content is dependent on a flag?
-edit --> show edit form (populated with current blog contents)
-
 
 
 ---
