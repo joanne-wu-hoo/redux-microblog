@@ -1,0 +1,59 @@
+Components
+###index.js
+<BrowserRouter><App>
+
+###NavBar
+- "/" => Home
+- "/new" => NewBlogForm
+
+###App
+- NavBar
+- Routes
+    * "/" => <Home blogs={this.state.blogs}/>
+    * "/:id" => <BlogPost id = {rtProps.match.params.id} {this.editPost} {this.deletePost}/>
+    * "/new" => <BlogForm {this.addPost}>
+
+Form submit
+- new (this.addPost)
+- edit (this.editPost, this.blogContents)
+
+- state holds blog content = {
+    id : {
+        title: string
+        content: string
+    }
+}
+- has methods that are passed down to NewBlogForm & BlogPost 
+    - addPost (passed to NewBlogForm)
+    - deletePost (passed to BlogPost)
+    - editPost (passed to BlogPost)
+
+###Home
+- Map through this.props.blogs and creates Cards, whose titles are links to "/:id"
+
+###BlogForm - (needs rtProps.history, addPost method) 
+- handleChange
+- handleSubmit => invoke prop function (Blogs addPost) to add post to Parent state 
+Two buttons
+- Save, history.push("/")
+- Cancel, history.push("/") OR redirect
+
+###BlogPost (needs editPost and deletePost method)
+- Content <h1><p>
+- Edit button => invoke prop function (Blogs editPost) to edit post in Parent state
+- Delete button => invoke prop fuction (Blogs deletePost) to delete post from Parent state
+- props = blog content from parent Blogs
+- state = {
+    editing: false/true
+}
+
+rendered content is dependent on a flag?
+edit --> show edit form (populated with current blog contents)
+
+
+
+---
+
+Questions for later
+* In the blog/edit form component problem statement has "this does not need to be routed differently (the url should stay the same)." - why is it so important that its not routed differently?
+
