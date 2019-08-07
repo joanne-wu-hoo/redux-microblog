@@ -7,7 +7,7 @@ import BlogForm from './BlogForm';
 import NotFound from './NotFound'
 import './App.css';
 
-const TEST_BLOGS = require("./test_blog.json");
+const SEED_BLOGS = require("./test_blog.json");
 
 /** App
  * 
@@ -25,8 +25,7 @@ const TEST_BLOGS = require("./test_blog.json");
 class App extends Component {
   constructor(props) {
     super(props);
-    //this.state = { blogs: {} };
-    this.state = { blogs: TEST_BLOGS };
+    this.state = { blogs: SEED_BLOGS };
     this.addPost = this.addPost.bind(this);
     this.editPost = this.editPost.bind(this);
     this.deletePost = this.deletePost.bind(this);
@@ -34,8 +33,6 @@ class App extends Component {
 
   /** given newPostObj = {id, title, description, content }, 
    * add to state in form {id : { title, description, content }} 
-   * 
-   * TODO: CHECK IF THIS WORKS
    */
 
   addPost(newPostObj) {
@@ -49,15 +46,17 @@ class App extends Component {
 
   /** given editedPostObj = {id, title, description}, edit post in state*/
   editPost(editedPostObj) {
-    const { id, ...content } = editedPostObj;
+    const { id, ...content } = editedPostObj; // expect id to be 1
     this.setState(state => ({
       blogs: { ...state.blogs, [id]: content }
-    }))
-
+    })
+    //, function after() { console.log("after App > editPost, this.state.blogs: ", this.state.blogs) }
+    )
   }
 
   /** given post id, delete post from state */
   deletePost(id) {
+    debugger;
     if (this.state.blogs[id] === undefined) {
       return
     }
@@ -75,14 +74,21 @@ class App extends Component {
       <div className="App">
         <NavBar />
         <Switch>
-          <Route exact path="/" render={() => <Home blogs={this.state.blogs} />} />
-          {/* <Route exact path="/:id" render={(rtProps) =>
+          <Route exact path="/" render={() => 
+            <Home 
+              blogs={this.state.blogs} />} />
+          <Route exact path="/new" render={(rtProps) => 
+            <BlogForm 
+              mode="add" 
+              add={this.addPost} 
+              history={rtProps.history}/>} />
+          <Route exact path="/:id" render={(rtProps) =>
             <BlogPost
               id={rtProps.match.params.id}
-              edit={this.editPost}
               delete={this.deletePost}
-              blogs={this.state.blogs} />} /> */}
-          <Route exact path="/new" render={(rtProps) => <BlogForm mode="add" add={this.addPost} history={rtProps.history}/>} />
+              edit={this.editPost}
+              blogs={this.state.blogs}
+              history={rtProps.history} />} />
           <Route render={() => <NotFound />} />
         </Switch>
       </div>

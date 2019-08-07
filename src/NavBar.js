@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import "./NavBar.css";
 import { NavLink } from 'react-router-dom';
 import { Navbar, Nav, NavItem } from 'reactstrap';
-// import { connect } from 'react-redux';
+
 
 class NavBar extends Component {
   render() {
@@ -16,7 +16,7 @@ class NavBar extends Component {
 
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink to="/new/">Add a New Post</NavLink>
+              <NavLink to="/new">Add a New Post</NavLink>
             </NavItem>
           </Nav>
 

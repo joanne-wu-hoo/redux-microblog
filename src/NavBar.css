@@ -16,7 +16,7 @@ nav {
   nav a.active {
     color: #f0f2f5;
     font-weight: bold;
-    border-bottom: 5px dotted;
+    /* border-bottom: 5px dotted; */
     box-sizing: border-box;
   }
   

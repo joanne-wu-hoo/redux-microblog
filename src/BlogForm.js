@@ -27,7 +27,7 @@ const DEFAULT_STATE = {
 class BlogForm extends Component {
   constructor(props) {
     super(props);
-    this.state = DEFAULT_STATE
+    this.state = (this.props.mode === "add") ? DEFAULT_STATE : this.props.blogContents;
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -46,21 +46,23 @@ class BlogForm extends Component {
       return
     }
 
-    let newBlogObj = { ...this.state, id: uuid() };
+    // If we're adding a blog, generate a unique id
+    // If we're editing a blog, use that blogs id
+    let addBlogObj = { ...this.state, id: uuid() }; 
+    let editBlogObj = { ...this.state, id: this.props.id };
 
     this.props.mode === "add"
-      ? this.props.add(newBlogObj)
-      : this.props.edit(newBlogObj)
+      ? this.props.add(addBlogObj)
+      : this.props.edit(editBlogObj)
 
     this.setState(DEFAULT_STATE);
 
     this.props.history.push("/");
   }
 
-
   render() {
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form className="container mt-5" onSubmit={this.handleSubmit}>
         <FormGroup>
           <Label for="title">Title</Label>
           <Input
@@ -100,12 +102,8 @@ class BlogForm extends Component {
         <Button>Submit</Button>
 
       </Form>
-
-
     )
   }
-
-
 }
 
 export default BlogForm;
