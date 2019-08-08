@@ -2,11 +2,13 @@
   "1": {
     "title": "hello",
     "description": "hello world",
-    "content": "Some of these blogs make over $100k a month, others are just a hobby for their owners, but all have the same purpose at their core… the love of writing and sharing information"
+    "content": "Some of these blogs make over $100k a month, others are just a hobby for their owners, but all have the same purpose at their core… the love of writing and sharing information",
+    "comments": [{"c1": "wow"},{"c2":"boo"}]
   },
   "2": {
-    "title": "goodbye",
-    "description": "goodbye world",
-    "content": "Some of these blogs make over $100k a month, others are just a hobby for their owners, but all have the same purpose at their core… the love of writing and sharing information"
+    "title": "goodbye - no comments",
+    "description": "goodbye world - no comments",
+    "content": "No comments. Some of these blogs make over $100k a month, others are just a hobby for their owners, but all have the same purpose at their core… the love of writing and sharing information",
+    "comments": []
   }
 }

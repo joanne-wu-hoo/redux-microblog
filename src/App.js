@@ -16,9 +16,11 @@ const SEED_BLOGS = require("./test_blog.json");
       id : {
         title: string,
         descripton: string,
-        content: string
+        content: string,
+        comments: [ {id, text}, ... ]
       }
     }
+ *
  */
 
 
@@ -29,9 +31,11 @@ class App extends Component {
     this.addPost = this.addPost.bind(this);
     this.editPost = this.editPost.bind(this);
     this.deletePost = this.deletePost.bind(this);
+    this.addComment = this.addComment.bind(this);
+    this.deleteComment = this.deleteComment.bind(this);
   }
 
-  /** given newPostObj = {id, title, description, content }, 
+  /** given newPostObj = {id, title, description, content, comments } where comments is an array
    * add to state in form {id : { title, description, content }} 
    */
 
@@ -56,7 +60,6 @@ class App extends Component {
 
   /** given post id, delete post from state */
   deletePost(id) {
-    debugger;
     if (this.state.blogs[id] === undefined) {
       return
     }
@@ -66,6 +69,29 @@ class App extends Component {
     this.setState(state => ({
       blogs: copiedBlogs
     }))
+  }
+
+  /** given postId and newCommentObj of form {id, text }
+   * add comment to state[postId]comment */
+  addComment(postId, newCommentObj){
+    let postObjCopy = {...this.state.blogs[postId]};
+    postObjCopy.comments = postObjCopy.comments.concat(newCommentObj);
+    
+    this.setState(state => ({
+      blogs: { ...state.blogs, [postId]: postObjCopy } 
+    }))
+
+  }
+
+  /** given post id & comment id, delete post's comment from state */
+  deleteComment(postId, commentId){
+    let postObjCopy = {...this.state.blogs[postId]};
+    postObjCopy.comments = postObjCopy.comments.filter(c => Object.keys(c)[0] !== commentId);
+
+    this.setState(state => ({
+      blogs: { ...state.blogs, [postId]: postObjCopy } 
+    }))
+
   }
 
   render() {
@@ -87,6 +113,8 @@ class App extends Component {
               id={rtProps.match.params.id}
               delete={this.deletePost}
               edit={this.editPost}
+              addComment={this.addComment}
+              deleteComment={this.deleteComment}
               blogs={this.state.blogs}
               history={rtProps.history} />} />
           <Route render={() => <NotFound />} />

@@ -11,8 +11,6 @@ import { Link } from 'react-router-dom';
 
 class Home extends Component {
   render() { 
-    // console.log("re-rendering home, this.props.blogs is: ", this.props.blogs);
-
     let blogIds = Object.keys(this.props.blogs);
     let blogs = blogIds.map(id =>
       <Card className="container mt-2 mb-2">

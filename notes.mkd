@@ -1,6 +1,103 @@
+## Thursday August 8th To-do
+0. Refactor BlogPost - make CommentForm its own component
+1. Get redux reducer, action_types, actions set up
+2. Refactor for redux
+3. Tests for reducer & action_types, and ideally App
+
+---
+
+## Redux Brainstorm
+
+REDUX
+store 
+- posts: {
+      id : {
+        title: string,
+        descripton: string,
+        content: string,
+        comments: [ {id, text}, ... ]
+      }
+    }
+
+actions/dispatch
+- ADD_POST
+- EDIT_POST
+- DELETE_POST
+- ADD_COMMENT
+- DELETE_COMMENT
+
+GOAL: Figure out what needs to be connected to props, and what needs to be connected to dispatch
+
+### Home (props)
+store.posts
+
+### BlogPost (props & dispatch)
+store.posts
+EDIT_POST
+DELETE_POST
+ADD_COMMENT
+DELETE_COMMENT
+
+### BlogForm (dispatch)
+ADD_POST
+
+---
+
 ### Part II: Adding Comments
+BlogPost component
+- list all comments in the order they were made
+- delete button onClick = invoke deleteComment
+- form for adding new comment
+
+App passes down this.state.blogs which looks like
+blogs: {
+      id : {
+        title: string,
+        descripton: string,
+        content: string,
+        comments: [ {id, text}, ... ]
+      }
+    }
+
+so in our BlogPost we do:
+let { id, blogs } = this.props;
+let { title, description, content, comments } = blogs[id];
+where comments is an array
+
+when we render we loop through comments and create <button><li> for each comment
+
+--
+
+var comments = [
+  {1: "test 1"},
+  {2: "test 2"}, 
+  {3: "test 3"}
+]
+
+// figuing out delete
+var id = "2"
+
+comments.filter(function(c){
+  console.log("c is: " c);
+  console.log("Object.keys(c) is: ", Object.keys(c));
+}))
+
+comments.filter(c => Object.keys(c) !== id) //  [ {1: "test a"}, {3: "test c"}]
 
 
+
+TODO:
+App 
+- create deleteComment, pass this down to BlogPost
+- update state to have comment array
+
+BlogPost
+- destructure to get comment array
+
+
+3. new comment form
+
+---
 
 ### DONE Part I: Initial React Component Plan
 Components
@@ -21,8 +118,6 @@ Components
 Form submit
 - new (this.addPost)
 - edit (this.editPost, this.blogContents)
-
-
 
 - state holds blog content = {
     id : {
