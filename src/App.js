@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import NavBar from './NavBar';
 import Home from './Home';
-import BlogPost from './BlogPost';
+import BlogContainer from './BlogContainer';
 import BlogForm from './BlogForm';
 import NotFound from './NotFound'
 import './App.css';
@@ -100,16 +100,19 @@ class App extends Component {
       <div className="App">
         <NavBar />
         <Switch>
+
           <Route exact path="/" render={() => 
             <Home 
               blogs={this.state.blogs} />} />
+
           <Route exact path="/new" render={(rtProps) => 
             <BlogForm 
               mode="add" 
               add={this.addPost} 
               history={rtProps.history}/>} />
+
           <Route exact path="/:id" render={(rtProps) =>
-            <BlogPost
+            <BlogContainer
               id={rtProps.match.params.id}
               delete={this.deletePost}
               edit={this.editPost}
@@ -117,7 +120,9 @@ class App extends Component {
               deleteComment={this.deleteComment}
               blogs={this.state.blogs}
               history={rtProps.history} />} />
+
           <Route render={() => <NotFound />} />
+          
         </Switch>
       </div>
     )

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 /** Home
  * 
  * props:
- * - blogs: { id: { title, description, content }, ...}
+ * - blogs: { id: { title, description, content, comments }, ...}
  * 
  */
 

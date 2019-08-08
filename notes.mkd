@@ -1,16 +1,18 @@
 ## Thursday August 8th To-do
-0. Refactor BlogPost - make CommentForm its own component
+DONE: Refactor BlogPost - make CommentForm its own component
+
+0. Get component/container folder structure set up
 1. Get redux reducer, action_types, actions set up
 2. Refactor for redux
 3. Tests for reducer & action_types, and ideally App
 
 ---
 
-## Redux Brainstorm
+# Redux Brainstorm
 
-REDUX
+## REDUX
 store 
-- posts: {
+- blogs: {
       id : {
         title: string,
         descripton: string,
@@ -25,21 +27,27 @@ actions/dispatch
 - DELETE_POST
 - ADD_COMMENT
 - DELETE_COMMENT
+later
+- GET_POST one {id: {title, description, content, comments}}
 
 GOAL: Figure out what needs to be connected to props, and what needs to be connected to dispatch
 
-### Home (props)
-store.posts
+## REACT
 
-### BlogPost (props & dispatch)
-store.posts
-EDIT_POST
-DELETE_POST
-ADD_COMMENT
-DELETE_COMMENT
+NewPost (container) -  mapDispatchToProps
+- PostForm (ADD_POST, not used EDIT_POST)
 
-### BlogForm (dispatch)
-ADD_POST
+Post (container) - mapStateToProps, mapDispatchToProps
+- CommentForm (ADD_COMMENT)
+- CommentList (store.blogs, DELETE_COMMENT)
+- PostDisplay (store.blogs, DELETE_POST, DELETE_COMMENT)
+- PostForm (EDIT_POST, not used ADD_POST)
+
+TitleList (container) - mapStateToProps
+- store.blogs
+
+
+
 
 ---
 
