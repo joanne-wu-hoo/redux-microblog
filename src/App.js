@@ -106,7 +106,9 @@ class App extends Component {
             <Home />} />
 
           <Route exact path="/new" render={(rtProps) =>
-            <NewPost mode="add" history={rtProps.history} />} />
+            <NewPost 
+              mode="add" 
+              history={rtProps.history} />} />
 
           <Route exact path="/:id" render={(rtProps) =>
             <Post

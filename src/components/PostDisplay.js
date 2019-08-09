@@ -4,14 +4,15 @@ import CommentForm from './CommentForm';
 // import CommentList from './CommentList';
 import PostForm from './PostForm';
 
-/** PostDisplay
+/** PostDisplay (container: Post)
  * 
  * props:
- * - id
- * - blogContents: { title, description, content, comments } 
- * - deletePost, which invokes functions in lineage to delete post from App state
- * - showEditPostForm, which invokes activateEditMode() in parent to set state of "editing" to true
- * - deleteComment, which invokes functions in lineage to delete post's comment from App state
+ * - posts: { id: { title, description, content, comments }, ...} from redux store.posts
+ * - addComment(), which adds comment to post's comment array in redux state 
+ * - deleteComment(), which deletes comment from post's comment array in redux state
+ * - deletePost(), which deletes post from redux state
+ * - editPost(), which edits post in redux state
+ * - addPost(), which adds post to redux state
  * 
  */
 
@@ -28,6 +29,9 @@ class PostDisplay extends Component {
     this.activateEditMode = this.activateEditMode.bind(this);
   }
 
+  /** when edit post button is clicked:
+   * - setState of editing to true, 
+   * - which will render edit form */
   activateEditMode() {
     this.setState(st => ({
       ...st,
@@ -35,18 +39,22 @@ class PostDisplay extends Component {
     }));
   }
 
+  /** dispatch DELETE_POST to remove post from redux state */
   handleDeletePost() {
     this.props.deletePost(this.props.id);
   }
 
+  /** dispatch EDIT_POST to edit post in redux state */
   handleEditPost(editedPostObj) {
     this.props.editPost(editedPostObj);
   }
 
+  /** dispatch DELETE_COMMENT to delete post comment from redux state */
   handleDeleteComment(comment) {
     this.props.deleteComment(this.props.id, comment)
   }
 
+  /** dispatch ADD_COMMENT to add comment to post's comment array in redux state */
   handleAddComment(postId, comment) {
     this.props.addComment(postId, comment)
   }
@@ -54,8 +62,8 @@ class PostDisplay extends Component {
   render() {
     let { title, description, content, comments } = this.props.posts[this.props.id];
 
-    // if this.state.editing is true --> show BlogForm (edit mode)
-    // if this.state.editing is false --> show BlogPost and CommentForm
+    // if this.state.editing is true --> show PostForm (edit mode)
+    // if this.state.editing is false --> show post content, CommentList, and CommentForm
     let htmlContent = (this.state.editing)
       ? <PostForm 
           mode="edit" 
@@ -71,7 +79,9 @@ class PostDisplay extends Component {
           <Button onClick={() => this.activateEditMode()}>Edit</Button>
           <Button onClick={() => this.handleDeletePost()}>Delete</Button>
           {/*  <CommentList comments={comments} />  pass down handleDeleteComment AND posts comments */}
-          <CommentForm id={this.props.id} add={this.handleAddComment}/> {/*  pass down handleAddComment */}
+          <CommentForm 
+            id={this.props.id} 
+            add={this.handleAddComment}/> 
         </div>
     return (
       <div>

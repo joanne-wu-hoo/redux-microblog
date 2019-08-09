@@ -3,19 +3,29 @@ import { Form, FormGroup, Input, Button, Label } from 'reactstrap';
 import uuid from 'uuid/v4';
 
 
-/** BlogForm
+/** PostForm 
+ * - container: NewPost, Post
+ * - parent: PostDisplay
  * 
- * props:
- * - id
- * - edit
- *   - function from App to edit post & set state
- *   - need to pass in {id, title, description,content}
- * - add 
- *   - function from App to add post & set state)
- *   - need to pass in {id, title, description,content}
- * - blogs: { id: {title, description, content}, ...}
+ * PostForm is rendered in two scenarios: 
+ * (1) Adding a new post 
+ * (2) Editing a post
+ * 
+ * Props vary based on scenario, as follows:
+ * 
+ * Adding new post mode
+ * - mode: "add"
+ * - history: rtProps.history from App
+ * 
+ * Editing post mode
+ * - mode: "edit"
+ * - editPost(), which invokes dispatch EDIT_POST to edit post info
+ * - id: selected post's id
+ * - posts: { id: { title, description, content, comments }, ...} from redux store.posts
+ * - history: rtProps.history from App
  * 
  */
+
 
 const DEFAULT_STATE = {
   title: '',
@@ -27,7 +37,11 @@ const DEFAULT_STATE = {
 class PostForm extends Component {
   constructor(props) {
     super(props);
-    this.state = (this.props.mode === "add") ? DEFAULT_STATE : this.props.posts[this.props.id]; 
+    // if form in new post mode, initialize form fields to empty strings
+    // if form in edit mode, pre-populate form fields with selected posts info
+    this.state = (this.props.mode === "add") 
+      ? DEFAULT_STATE 
+      : this.props.posts[this.props.id]; 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -46,17 +60,20 @@ class PostForm extends Component {
       return
     }
 
-    // If we're adding a blog, generate a unique id
-    // If we're editing a blog, use that blogs id
+    // If we're adding a post, generate a unique id
+    // If we're editing a post, use that posts id
     let addBlogObj = { ...this.state, postId: uuid() }; 
     let editBlogObj = { ...this.state, postId: this.props.id };
 
+    // If we're in "add"/new post mode, invoke addPost to dispatch ADD_POST
+    // If we;re in edit post mode, invoke editPost to dispatch EDIT_POST
     this.props.mode === "add"
       ? this.props.addPost(addBlogObj)
       : this.props.editPost(editBlogObj)
 
+    // reset form
     this.setState(DEFAULT_STATE);
-
+    // redirect
     this.props.history.push("/");
   }
 

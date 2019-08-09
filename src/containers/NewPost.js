@@ -1,15 +1,16 @@
-/** NewPost (container) -  mapDispatchToProps
-- PostForm (ADD_POST, not used EDIT_POST)
-*/
+/** NewPost (container)
+ * 
+ * components:
+ * - PostForm
+ * 
+ */
 
 import { connect } from "react-redux";
 import PostForm from "../components/PostForm";
 import { addPost } from "../actions";
 
-function mapDispatchToProps(dispatch) {
-  return {
-    addPost: (newPostObj) => dispatch(addPost(newPostObj))
-  };
+const mapDispatchToProps = {
+  addPost
 }
 
 export default connect(

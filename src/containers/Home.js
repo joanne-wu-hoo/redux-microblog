@@ -1,6 +1,8 @@
-/** Home (container) - mapStateToProps
-- state.blogs
-*/
+/** Home (container)
+ * 
+ * components: 
+ * - TitleList
+ */
 
 import { connect } from "react-redux";
 import TitleList from "../components/TitleList";

@@ -1,8 +1,8 @@
 # Friday August 9th
 1. CommentList
+2. Delete post functionality
 NOTE: CHECK THAT we're using postId instead of id 
-3. Refactor for redux
-4. Tests for reducer & action_types, and ideally App
+3. Tests for reducer & action_types, and ideally App
 
 ---
 

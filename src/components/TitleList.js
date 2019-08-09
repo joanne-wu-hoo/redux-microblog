@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, CardTitle, CardSubtitle } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-/** TitleList
+/** TitleList (container: Home)
  * 
  * props:
  * - posts: { id: { title, description, content, comments }, ...} from redux store.posts

@@ -1,8 +1,11 @@
-/** Post (container) - mapStateToProps, mapDispatchToProps
-- CommentForm (ADD_COMMENT)
-- CommentList (store.blogs, DELETE_COMMENT)
-- PostDisplay (store.blogs, DELETE_POST, DELETE_COMMENT)
-- PostForm (EDIT_POST, not used ADD_POST)
+/** Post (container)
+ * 
+ * components:
+ * - PostDisplay (posts, deletePost, deleteComment)
+ * -- CommentForm (addComment)
+ * -- CommentList (posts, deleteComment)
+ * -- PostForm (editPost)
+ * 
 */
 
 import { connect } from "react-redux";

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Input, Button, Label } from 'reactstrap';
 
-/** CommentForm
+/** CommentForm (container: Post, parent: PostDisplay)
  * 
  * state: { commentText }
  * 
  * props:
- * - id
- * - add, which invokes functions in lineage to add comment to post in App state
+ * - id: post id
+ * - add, which ultimately dispatches ADD_COMMENT to add comment to post in redux state
  * 
  */
 
@@ -29,7 +29,7 @@ class CommentForm extends Component {
     });
   }
 
-  handleSubmit(evt){
+  handleSubmit(evt) {
     evt.preventDefault();
     this.props.add(this.props.id, this.state.commentText, evt);
     this.setState(DEFAULT_STATE);
