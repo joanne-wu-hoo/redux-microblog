@@ -1,9 +1,11 @@
 /** Post (container)
  * 
- * props:
+ * props from App:
+ * - id: post id from URL variable via rtProps
+ * - posts: { id: { title, description, content, comments }, ...} from redux store.posts
  * - history
  * 
- * is a container around the following components:
+ * container around the following components:
  * - PostDisplay (posts, deletePost, deleteComment)
  * -- CommentForm (addComment)
  * -- CommentList (posts, deleteComment)
@@ -13,10 +15,10 @@
 
 import { connect } from "react-redux";
 import PostDisplay from "../components/PostDisplay";
-import { deleteComment, addComment, deletePost, editPost, addPost } from "../actions";
+import { getPostDetailFromApi, deleteComment, addComment, deletePost, editPost, addPost } from "../actions";
 
 function mapStateToProps(state) {
-  return { posts: state.posts };
+  return { posts: state.postsDetails };
 }
 
 const mapDispatchToProps = {
@@ -24,7 +26,8 @@ const mapDispatchToProps = {
   deleteComment,
   deletePost,
   editPost,
-  addPost
+  addPost,
+  getPostDetailFromApi
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDisplay); 

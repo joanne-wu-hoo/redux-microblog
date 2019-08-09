@@ -1,14 +1,16 @@
-/** Home (container)
+/** Home (container) 
  * 
- * components: 
+ * container around the following components: 
  * - TitleList
+ * 
  */
 
 import { connect } from "react-redux";
 import TitleList from "../components/TitleList";
+import { getPostsSummaryFromApi } from "../actions"
 
 function mapStateToProps(state) {
-  return { posts: state.posts };
+  return { posts: state.postsSummary };
 }
 
-export default connect(mapStateToProps)(TitleList);
+export default connect(mapStateToProps,{ getPostsSummaryFromApi })(TitleList);

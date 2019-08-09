@@ -1,4 +1,12 @@
-import { ADD_POST, EDIT_POST, DELETE_POST, ADD_COMMENT, DELETE_COMMENT } from './actionTypes';
+import { 
+  ADD_POST, 
+  EDIT_POST, 
+  DELETE_POST, 
+  ADD_COMMENT, 
+  DELETE_COMMENT, 
+  LOAD_POSTS,
+  LOAD_POST
+} from './actionTypes';
 
 // redux store
 // posts: {
@@ -11,23 +19,43 @@ import { ADD_POST, EDIT_POST, DELETE_POST, ADD_COMMENT, DELETE_COMMENT } from '.
 // }
 
 
-const INITIAL_STATE = { posts: require("./test_blog.json") };
+const INITIAL_STATE = { postsSummary: [], postsDetails: {} };
 
 function rootReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
+    /** load all post summary info */
+    case LOAD_POSTS:
+      // if no changes to database return previous state
+      if (state.postsSummary.length === action.postsSummary.length) return state;
+      // if posts were added to database, add additional posts to state
+      return {...state,
+        postsSummary: state.postsSummary.concat(action.postsSummary)
+      }
+
+    /** load post details for requested post */
+    case LOAD_POST:
+      let {id, ...content} = action.postsDetails;   
+      return {...state,
+        postsDetails: {
+          ...state.postsDetails,
+          [id]: content
+        }
+      }
+
     case ADD_POST:
       return {
         ...state,
         posts: { ...state.posts, [action.postId]: action.content }
       }
+
     case EDIT_POST:
       // LATER in thunk api land, wrap in try/catch and async business
       return {
         ...state,
-        posts: {
-          ...state.posts,
+        postsDetails: {
+          ...state.postsDetails,
           [action.postId]: {
-            ...state.posts[action.postId],
+            ...state.postsDetails[action.postId],
             title: action.content.title,
             description: action.content.description,
             body: action.content.body
@@ -57,7 +85,6 @@ function rootReducer(state = INITIAL_STATE, action) {
             ...state.posts[action.postId],
             comments: newComments
           }
-
         }
       }
 

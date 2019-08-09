@@ -1,6 +1,7 @@
 /** NewPost (container)
  * 
- * props:
+ * props from App:
+ * - mode: "add"
  * - history
  * 
  * container around the following components:

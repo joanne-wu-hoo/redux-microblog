@@ -29,74 +29,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { blogs: SEED_BLOGS };
-    this.addPost = this.addPost.bind(this);
-    this.editPost = this.editPost.bind(this);
-    this.deletePost = this.deletePost.bind(this);
-    this.addComment = this.addComment.bind(this);
-    this.deleteComment = this.deleteComment.bind(this);
-  }
-
-  /** given newPostObj = {id, title, description, content, comments } where comments is an array
-   * add to state in form {id : { title, description, content }} 
-   */
-
-  addPost(newPostObj) {
-    const { id, ...content } = newPostObj;
-    this.setState(state => ({
-      blogs: { ...state.blogs, [id]: content }
-    })
-      // ,function after() { console.log("after App > addPost, this.state.blogs: ", this.state.blogs) }
-    )
-  }
-
-  /** given editedPostObj = {id, title, description}, edit post in state*/
-  editPost(editedPostObj) {
-    const { id, ...content } = editedPostObj; // expect id to be 1
-    this.setState(state => ({
-      blogs: { ...state.blogs, [id]: content }
-    })
-      //, function after() { console.log("after App > editPost, this.state.blogs: ", this.state.blogs) }
-    )
-  }
-
-  /** given post id, delete post from state */
-  deletePost(id) {
-    if (this.state.blogs[id] === undefined) {
-      return
-    }
-    let copiedBlogs = { ...this.state.blogs };
-    delete copiedBlogs[id];
-
-    this.setState(state => ({
-      blogs: copiedBlogs
-    }))
-  }
-
-  /** given postId and newCommentObj of form {id, text }
-   * add comment to state[postId]comment */
-  addComment(postId, newCommentObj) {
-    let postObjCopy = { ...this.state.blogs[postId] };
-    postObjCopy.comments = postObjCopy.comments.concat(newCommentObj);
-
-    this.setState(state => ({
-      blogs: { ...state.blogs, [postId]: postObjCopy }
-    }))
-
-  }
-
-  /** given post id & comment id, delete post's comment from state */
-  deleteComment(postId, commentId) {
-    let postObjCopy = { ...this.state.blogs[postId] };
-    postObjCopy.comments = postObjCopy.comments.filter(c => Object.keys(c)[0] !== commentId);
-
-    this.setState(state => ({
-      blogs: { ...state.blogs, [postId]: postObjCopy }
-    }))
-
   }
 
   render() {
-
     return (
       <div className="App">
         <NavBar />

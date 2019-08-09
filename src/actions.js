@@ -1,14 +1,73 @@
-import { ADD_POST, EDIT_POST, DELETE_POST, ADD_COMMENT, DELETE_COMMENT } from './actionTypes';
+import { 
+  ADD_POST, 
+  EDIT_POST, 
+  DELETE_POST, 
+  ADD_COMMENT, 
+  DELETE_COMMENT, 
+  LOAD_POSTS,
+  LOAD_POST
+} from './actionTypes';
+import axios from "axios"
 
-// redux store
-// posts: {
-//   id: {
-//     title: string,
-//     descripton: string,
-//     body: string,
-//     comments: [{ id, text }, ... ]
-//   }
-// }
+/** redux store {
+  postsSummary: [
+    {
+    id: 1,
+    title: "First Post",
+    description: "Best post ever!",
+    votes: 0
+    }, ...  
+  ],
+  postsDetails: {
+    id: {
+      title: string,
+      descripton: string,
+      body: string,
+      comments: [{ id, text }, ... ]
+    }
+  }
+}
+*/
+
+
+
+const BASE_URL = "http://localhost:5000/api/posts/"
+
+/** make API call to get all post summaries, store on redux.state.postsSummary */
+function gotPostsSummary(postsSummary){
+  return {type: LOAD_POSTS, postsSummary}
+
+}
+
+export function getPostsSummaryFromApi(){
+  return async function(dispatch){
+    let res = await axios.get(`${BASE_URL}`)
+    dispatch(gotPostsSummary(res.data))
+  }
+}
+
+/** make API call to get details for requested post, store on redux.state.postDetails */
+function gotPostDetail(postsDetails){
+  return {type: LOAD_POST, postsDetails}
+
+}
+
+export function getPostDetailFromApi(postId){
+  return async function(dispatch){
+    let res = await axios.get(`${BASE_URL}/${postId}`);
+    dispatch(gotPostDetail(res.data))
+  }
+}
+
+
+/** TODO: 
+- convert addPost, editPost, deletePost, addComment, deleteComment to thunk action creators
+- change all redux state.posts --> redux state.postsDetails
+*/
+
+/** addPost plan
+ * - need to pass in {title, description, body}
+ */
 
 /** given: newPostObj = {id, title, description, body } 
  * return: { 
