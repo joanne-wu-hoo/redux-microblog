@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import NavBar from './NavBar';
-import Home from './Home';
-import BlogContainer from './BlogContainer';
-import BlogForm from './BlogForm';
+import Home from './containers/Home';
+import NewPost from './containers/NewPost';
+import Post from './containers/Post';
 import NotFound from './NotFound'
 import './App.css';
+
 
 const SEED_BLOGS = require("./test_blog.json");
 
@@ -44,7 +45,7 @@ class App extends Component {
     this.setState(state => ({
       blogs: { ...state.blogs, [id]: content }
     })
-    // ,function after() { console.log("after App > addPost, this.state.blogs: ", this.state.blogs) }
+      // ,function after() { console.log("after App > addPost, this.state.blogs: ", this.state.blogs) }
     )
   }
 
@@ -54,7 +55,7 @@ class App extends Component {
     this.setState(state => ({
       blogs: { ...state.blogs, [id]: content }
     })
-    //, function after() { console.log("after App > editPost, this.state.blogs: ", this.state.blogs) }
+      //, function after() { console.log("after App > editPost, this.state.blogs: ", this.state.blogs) }
     )
   }
 
@@ -73,23 +74,23 @@ class App extends Component {
 
   /** given postId and newCommentObj of form {id, text }
    * add comment to state[postId]comment */
-  addComment(postId, newCommentObj){
-    let postObjCopy = {...this.state.blogs[postId]};
+  addComment(postId, newCommentObj) {
+    let postObjCopy = { ...this.state.blogs[postId] };
     postObjCopy.comments = postObjCopy.comments.concat(newCommentObj);
-    
+
     this.setState(state => ({
-      blogs: { ...state.blogs, [postId]: postObjCopy } 
+      blogs: { ...state.blogs, [postId]: postObjCopy }
     }))
 
   }
 
   /** given post id & comment id, delete post's comment from state */
-  deleteComment(postId, commentId){
-    let postObjCopy = {...this.state.blogs[postId]};
+  deleteComment(postId, commentId) {
+    let postObjCopy = { ...this.state.blogs[postId] };
     postObjCopy.comments = postObjCopy.comments.filter(c => Object.keys(c)[0] !== commentId);
 
     this.setState(state => ({
-      blogs: { ...state.blogs, [postId]: postObjCopy } 
+      blogs: { ...state.blogs, [postId]: postObjCopy }
     }))
 
   }
@@ -101,28 +102,21 @@ class App extends Component {
         <NavBar />
         <Switch>
 
-          <Route exact path="/" render={() => 
-            <Home 
-              blogs={this.state.blogs} />} />
+          <Route exact path="/" render={() =>
+            <Home />} />
 
-          <Route exact path="/new" render={(rtProps) => 
-            <BlogForm 
-              mode="add" 
-              add={this.addPost} 
-              history={rtProps.history}/>} />
+          <Route exact path="/new" render={(rtProps) =>
+            <NewPost mode="add" history={rtProps.history} />} />
 
           <Route exact path="/:id" render={(rtProps) =>
-            <BlogContainer
+            <Post
               id={rtProps.match.params.id}
-              delete={this.deletePost}
-              edit={this.editPost}
-              addComment={this.addComment}
-              deleteComment={this.deleteComment}
-              blogs={this.state.blogs}
-              history={rtProps.history} />} />
+              posts={this.props.posts}
+              history={rtProps.history} />}
+            />
 
           <Route render={() => <NotFound />} />
-          
+
         </Switch>
       </div>
     )

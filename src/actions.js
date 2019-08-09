@@ -10,38 +10,50 @@ import { ADD_POST, EDIT_POST, DELETE_POST, ADD_COMMENT, DELETE_COMMENT } from '.
 //   }
 // }
 
-// newPostObj = {id, title, description, body } 
+/** given: newPostObj = {id, title, description, body } 
+ * return: { 
+ *  type:
+ *  postId, 
+ *  content: { title, description, body, comments: [] }
+ * }
+ */
 export function addPost(newPostObj) {
-  const { id, ...content } = newPostObj;
+  const { postId, ...content } = newPostObj;
   // when new post is created, there are no comments,
   // so initialize an empty array
   content.comments = [];
 
   return {
     type: ADD_POST,
-    id,
+    postId,
     content
   }
 }
 
-export function deletePost(id) {
+export function deletePost(postId) {
   return {
     type: DELETE_POST,
-    id,
+    postId
   }
 }
 
-/** editedPostObj = {id, title, description, body } */
+/** given: editedPostObj = {id, title, description, body }
+ *  return: { 
+ *    type:
+ *    postId, 
+ *    content: { title, description, body, comments } where comments is an array
+ * }
+ */
 export function editPost(editedPostObj) { 
-  const { id, ...content } = editedPostObj;
+  const { postId, ...content } = editedPostObj;
   return {
     type: EDIT_POST,
-    id,
+    postId,
     content,
   }
 }
 
- /** given postId and newCommentObj of form {id, text } */
+ /** given postId and newCommentObj of form { id, text } */
 export function addComment(postId, newCommentObj) {
   return {
     type: ADD_COMMENT,

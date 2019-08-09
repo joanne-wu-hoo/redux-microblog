@@ -1,10 +1,8 @@
-## Thursday August 8th To-do
-DONE: Refactor BlogPost - make CommentForm its own component
-
-0. Get component/container folder structure set up
-1. Get redux reducer, action_types, actions set up
-2. Refactor for redux
-3. Tests for reducer & action_types, and ideally App
+# Friday August 9th
+1. CommentList
+NOTE: CHECK THAT we're using postId instead of id 
+3. Refactor for redux
+4. Tests for reducer & action_types, and ideally App
 
 ---
 

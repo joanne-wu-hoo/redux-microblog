@@ -11,24 +11,69 @@ import { ADD_POST, EDIT_POST, DELETE_POST, ADD_COMMENT, DELETE_COMMENT } from '.
 // }
 
 
-const INITIAL_STATE = { posts: {} };
+const INITIAL_STATE = { posts: require("./test_blog.json") };
 
 function rootReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case ADD_POST:
-      let postObjCopy = { ...this.state.blogs[postId] };
-      postObjCopy.comments = postObjCopy.comments.concat(newCommentObj);
-
-      return ""
+      return {
+        ...state,
+        posts: { ...state.posts, [action.postId]: action.content }
+      }
     case EDIT_POST:
-      // MAKE SURE NOT OVER WRTIE COMMENT WHEN YOU EDIT!!!!!!!!!!!!!
-      return ""
+      // TODO: check that post's comments aren't overwritten
+      // LATER in thunk api land, wrap in try/catch and async business
+      return {
+        ...state,
+        posts: {
+          ...state.posts,
+          [action.postId]: {
+            ...state.posts[action.postId],
+            title: action.content.title,
+            description: action.content.description,
+            body: action.content.body
+          }
+        }
+      }
     case DELETE_POST:
-      return ""
+      if (state.posts[action.postId] === undefined) return state;
+      let copiedPosts = { ...state.posts };
+      delete copiedPosts[action.postId];
+
+      return {
+        ...state,
+        posts: copiedPosts
+      }
     case ADD_COMMENT:
-      return ""
+      let postObjCopy = { ...state.posts[action.postId] };
+      postObjCopy.comments = postObjCopy.comments.concat(action.newCommentObj);
+      return {
+        ...state,
+        posts: {
+          ...state.posts,
+          [action.id]: {
+            ...state.posts[action.id],
+            postObjCopy
+          }
+
+        }
+      }
+
     case DELETE_COMMENT:
-      return ""
+      let selectedPostObjCopy = { ...state.posts[action.postId] };
+      selectedPostObjCopy.comments = selectedPostObjCopy.comments.filter(c => Object.keys(c)[0] !== action.commentId);
+      return {
+        ...state,
+        posts: {
+          ...state.posts,
+          [action.id]: {
+            ...state.posts[action.id],
+            postObjCopy
+          }
+
+        }
+      }
+
     default:
       return state;
   }
