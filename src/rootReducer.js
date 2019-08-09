@@ -21,7 +21,6 @@ function rootReducer(state = INITIAL_STATE, action) {
         posts: { ...state.posts, [action.postId]: action.content }
       }
     case EDIT_POST:
-      // TODO: check that post's comments aren't overwritten
       // LATER in thunk api land, wrap in try/catch and async business
       return {
         ...state,
@@ -35,25 +34,28 @@ function rootReducer(state = INITIAL_STATE, action) {
           }
         }
       }
+
     case DELETE_POST:
       if (state.posts[action.postId] === undefined) return state;
       let copiedPosts = { ...state.posts };
       delete copiedPosts[action.postId];
-
+  
       return {
         ...state,
         posts: copiedPosts
       }
+
     case ADD_COMMENT:
       let postObjCopy = { ...state.posts[action.postId] };
-      postObjCopy.comments = postObjCopy.comments.concat(action.newCommentObj);
+      let newComments  = postObjCopy.comments.concat(action.newCommentObj);
+      
       return {
         ...state,
         posts: {
           ...state.posts,
-          [action.id]: {
-            ...state.posts[action.id],
-            postObjCopy
+          [action.postId]: {
+            ...state.posts[action.postId],
+            comments: newComments
           }
 
         }
@@ -61,16 +63,16 @@ function rootReducer(state = INITIAL_STATE, action) {
 
     case DELETE_COMMENT:
       let selectedPostObjCopy = { ...state.posts[action.postId] };
-      selectedPostObjCopy.comments = selectedPostObjCopy.comments.filter(c => Object.keys(c)[0] !== action.commentId);
+      let updatedComments = selectedPostObjCopy.comments.filter(c => Object.keys(c)[0] !== action.commentId);
+     
       return {
         ...state,
         posts: {
           ...state.posts,
-          [action.id]: {
-            ...state.posts[action.id],
-            postObjCopy
+          [action.postId]: {
+            ...state.posts[action.postId],
+            comments: updatedComments
           }
-
         }
       }
 

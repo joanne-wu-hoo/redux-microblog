@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from "reactstrap";
 import CommentForm from './CommentForm';
-// import CommentList from './CommentList';
+import CommentList from './CommentList';
 import PostForm from './PostForm';
 
 /** PostDisplay (container: Post)
@@ -42,6 +42,7 @@ class PostDisplay extends Component {
   /** dispatch DELETE_POST to remove post from redux state */
   handleDeletePost() {
     this.props.deletePost(this.props.id);
+    this.props.history.push("/");
   }
 
   /** dispatch EDIT_POST to edit post in redux state */
@@ -50,13 +51,13 @@ class PostDisplay extends Component {
   }
 
   /** dispatch DELETE_COMMENT to delete post comment from redux state */
-  handleDeleteComment(comment) {
-    this.props.deleteComment(this.props.id, comment)
+  handleDeleteComment(commentId) {
+    this.props.deleteComment(this.props.id, commentId);
   }
 
   /** dispatch ADD_COMMENT to add comment to post's comment array in redux state */
   handleAddComment(postId, comment) {
-    this.props.addComment(postId, comment)
+    this.props.addComment(postId, comment);
   }
 
   render() {
@@ -78,7 +79,9 @@ class PostDisplay extends Component {
           <p> { content } </p>
           <Button onClick={() => this.activateEditMode()}>Edit</Button>
           <Button onClick={() => this.handleDeletePost()}>Delete</Button>
-          {/*  <CommentList comments={comments} />  pass down handleDeleteComment AND posts comments */}
+           <CommentList 
+            comments={comments} 
+            delete={this.handleDeleteComment}/> 
           <CommentForm 
             id={this.props.id} 
             add={this.handleAddComment}/> 

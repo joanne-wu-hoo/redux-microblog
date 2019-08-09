@@ -1,8 +1,6 @@
-# Friday August 9th
-1. CommentList
-2. Delete post functionality
-NOTE: CHECK THAT we're using postId instead of id 
+# Friday August 9th 
 3. Tests for reducer & action_types, and ideally App
+
 
 ---
 

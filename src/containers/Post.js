@@ -1,6 +1,9 @@
 /** Post (container)
  * 
- * components:
+ * props:
+ * - history
+ * 
+ * is a container around the following components:
  * - PostDisplay (posts, deletePost, deleteComment)
  * -- CommentForm (addComment)
  * -- CommentList (posts, deleteComment)

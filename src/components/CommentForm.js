@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Input, Button, Label } from 'reactstrap';
+import uuid from 'uuid/v4';
 
 /** CommentForm (container: Post, parent: PostDisplay)
  * 
@@ -31,7 +32,9 @@ class CommentForm extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    this.props.add(this.props.id, this.state.commentText, evt);
+    let id = uuid();
+    let newCommentObj = { [id]: this.state.commentText}
+    this.props.add(this.props.id, newCommentObj, evt);
     this.setState(DEFAULT_STATE);
   }
 

@@ -1,6 +1,9 @@
 /** NewPost (container)
  * 
- * components:
+ * props:
+ * - history
+ * 
+ * container around the following components:
  * - PostForm
  * 
  */
