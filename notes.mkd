@@ -1,6 +1,29 @@
-# Friday August 9th 
-3. Tests for reducer & action_types, and ideally App
+# TODO
+1. convert deletePost, editPost, addComment, deleteComment to backend
+- add thunk action creators, possibly update root reducers, update containers to use thunk action creators, update all components as necc.
 
+REMEMEBR - new redux store looks like:
+/** redux store {
+  postsSummary: [
+    {
+    id: 1,
+    title: "First Post",
+    description: "Best post ever!",
+    votes: 0
+    }, ...  
+  ],
+  postsDetails: {
+    id: {
+      title: string,
+      descripton: string,
+      body: string,
+      comments: [{ id, text }, ... ]
+    }
+  }
+}
+*/
+
+NOTE: might run into issues with postId and id
 
 ---
 

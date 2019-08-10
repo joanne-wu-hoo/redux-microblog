@@ -15,7 +15,7 @@
 
 import { connect } from "react-redux";
 import PostDisplay from "../components/PostDisplay";
-import { getPostDetailFromApi, deleteComment, addComment, deletePost, editPost, addPost } from "../actions";
+import { getPostDetailFromApi, deleteComment, addComment, deletePost, editPost } from "../actions";
 
 function mapStateToProps(state) {
   return { posts: state.postsDetails };
@@ -26,7 +26,6 @@ const mapDispatchToProps = {
   deleteComment,
   deletePost,
   editPost,
-  addPost,
   getPostDetailFromApi
 }
 

@@ -8,15 +8,25 @@ import {
   LOAD_POST
 } from './actionTypes';
 
-// redux store
-// posts: {
-//   id: {
-//     title: string,
-//     descripton: string,
-//     body: string,
-//     comments: [{ id, text }, ... ]
-//   }
-// }
+/** redux store {
+  postsSummary: [
+    {
+    id: 1,
+    title: "First Post",
+    description: "Best post ever!",
+    votes: 0
+    }, ...  
+  ],
+  postsDetails: {
+    id: {
+      title: string,
+      descripton: string,
+      body: string,
+      comments: [{ id, text }, ... ]
+    }
+  }
+}
+*/
 
 
 const INITIAL_STATE = { postsSummary: [], postsDetails: {} };
@@ -26,7 +36,7 @@ function rootReducer(state = INITIAL_STATE, action) {
     /** load all post summary info */
     case LOAD_POSTS:
       // if no changes to database return previous state
-      if (state.postsSummary.length === action.postsSummary.length) return state;
+      //if (state.postsSummary.length === action.postsSummary.length) return state;
       // if posts were added to database, add additional posts to state
       return {...state,
         postsSummary: state.postsSummary.concat(action.postsSummary)
@@ -43,9 +53,10 @@ function rootReducer(state = INITIAL_STATE, action) {
       }
 
     case ADD_POST:
+   
       return {
         ...state,
-        posts: { ...state.posts, [action.postId]: action.content }
+        postsSummary: state.postsSummary.concat(action.newPostObj)
       }
 
     case EDIT_POST:

@@ -1,9 +1,9 @@
-import { 
-  ADD_POST, 
-  EDIT_POST, 
-  DELETE_POST, 
-  ADD_COMMENT, 
-  DELETE_COMMENT, 
+import {
+  ADD_POST,
+  EDIT_POST,
+  DELETE_POST,
+  ADD_COMMENT,
+  DELETE_COMMENT,
   LOAD_POSTS,
   LOAD_POST
 } from './actionTypes';
@@ -34,60 +34,52 @@ import axios from "axios"
 const BASE_URL = "http://localhost:5000/api/posts/"
 
 /** make API call to get all post summaries, store on redux.state.postsSummary */
-function gotPostsSummary(postsSummary){
-  return {type: LOAD_POSTS, postsSummary}
+function gotPostsSummary(postsSummary) {
+  return { type: LOAD_POSTS, postsSummary }
 
 }
 
-export function getPostsSummaryFromApi(){
-  return async function(dispatch){
-    let res = await axios.get(`${BASE_URL}`)
-    dispatch(gotPostsSummary(res.data))
+export function getPostsSummaryFromApi() {
+  return async function (dispatch, getState) {
+  
+    if (getState().postsSummary.length === 0) {
+      let res = await axios.get(`${BASE_URL}`);
+      dispatch(gotPostsSummary(res.data));
+    }
   }
 }
 
 /** make API call to get details for requested post, store on redux.state.postDetails */
-function gotPostDetail(postsDetails){
-  return {type: LOAD_POST, postsDetails}
+function gotPostDetail(postsDetails) {
+  return { type: LOAD_POST, postsDetails }
 
 }
 
-export function getPostDetailFromApi(postId){
-  return async function(dispatch){
+export function getPostDetailFromApi(postId) {
+  return async function (dispatch) {
     let res = await axios.get(`${BASE_URL}/${postId}`);
+    // if res.data === "" --> dispatch(showErr())
     dispatch(gotPostDetail(res.data))
   }
 }
 
 
-/** TODO: 
-- convert addPost, editPost, deletePost, addComment, deleteComment to thunk action creators
-- change all redux state.posts --> redux state.postsDetails
-*/
-
-/** addPost plan
- * - need to pass in {title, description, body}
- */
-
-/** given: newPostObj = {id, title, description, body } 
- * return: { 
- *  type:
- *  postId, 
- *  content: { title, description, body, comments: [] }
- * }
- */
-export function addPost(newPostObj) {
-  const { postId, ...content } = newPostObj;
-  // when new post is created, there are no comments,
-  // so initialize an empty array
-  content.comments = [];
-
-  return {
-    type: ADD_POST,
-    postId,
-    content
+/** make API call to add post, store on redux state.postsSummary */
+export function addNewPostThroughApi(newPostObj) {
+  return async function (dispatch) {
+    let res = await axios.post(`${BASE_URL}`, newPostObj);
+    dispatch(addPost(res.data))
   }
 }
+
+function addPost(newPostObj) {
+  return {
+    type: ADD_POST,
+    newPostObj
+  }
+}
+
+// TODO: refactor for backend
 
 export function deletePost(postId) {
   return {
@@ -103,7 +95,7 @@ export function deletePost(postId) {
  *    content: { title, description, body, comments } where comments is an array
  * }
  */
-export function editPost(editedPostObj) { 
+export function editPost(editedPostObj) {
   const { postId, ...content } = editedPostObj;
   return {
     type: EDIT_POST,
@@ -112,7 +104,7 @@ export function editPost(editedPostObj) {
   }
 }
 
- /** given postId and newCommentObj of form { id, text } */
+/** given postId and newCommentObj of form { id, text } */
 export function addComment(postId, newCommentObj) {
   return {
     type: ADD_COMMENT,

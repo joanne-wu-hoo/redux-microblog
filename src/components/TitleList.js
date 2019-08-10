@@ -65,6 +65,7 @@ class TitleList extends Component {
       );
     }
 
+   
     let posts = this.props.posts.map(postObj =>
       <Card className="container mt-2 mb-2">
         <CardTitle>

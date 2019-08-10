@@ -30,7 +30,7 @@ import uuid from 'uuid/v4';
 const DEFAULT_STATE = {
   title: '',
   description: '',
-  content: ''
+  body: ''
 }
 
 
@@ -62,14 +62,15 @@ class PostForm extends Component {
 
     // If we're adding a post, generate a unique id
     // If we're editing a post, use that posts id
-    let addBlogObj = { ...this.state, postId: uuid() }; 
+    //let addBlogObj = { ...this.state, id: uuid() }; 
+    let addBlogObj = { ...this.state }; 
     let editBlogObj = { ...this.state, postId: this.props.id };
 
     // If we're in "add"/new post mode, invoke addPost to dispatch ADD_POST
     // If we;re in edit post mode, invoke editPost to dispatch EDIT_POST
     this.props.mode === "add"
-      ? this.props.addPost(addBlogObj)
-      : this.props.editPost(editBlogObj)
+      ? this.props.addNewPostThroughApi(addBlogObj)
+      : this.props.editPost(editBlogObj) // TODO: update to backend action 
 
     // reset form
     this.setState(DEFAULT_STATE);
@@ -105,13 +106,13 @@ class PostForm extends Component {
         </FormGroup>
 
         <FormGroup>
-          <Label for="content">Content</Label>
+          <Label for="body">Body</Label>
           <Input
-            id="content"
+            id="body"
             type="textarea"
             onChange={this.handleChange}
-            name="content"
-            value={this.state.content}
+            name="body"
+            value={this.state.body}
             required
           />
         </FormGroup>

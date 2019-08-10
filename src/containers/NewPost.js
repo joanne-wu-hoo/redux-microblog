@@ -11,10 +11,10 @@
 
 import { connect } from "react-redux";
 import PostForm from "../components/PostForm";
-import { addPost } from "../actions";
+import { addNewPostThroughApi  } from "../actions";
 
 const mapDispatchToProps = {
-  addPost
+  addNewPostThroughApi
 }
 
 export default connect(
