@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Bloggity-blog
+
+Blogging app built with React and Redux! 
 
 ## Available Scripts
 
