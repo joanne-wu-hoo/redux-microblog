@@ -1,4 +1,4 @@
-# Bloggity-blog
+# Microblog
 
 Blogging app built with React and Redux! 
 
