@@ -20,7 +20,6 @@ createdb microblog
 psql microblog < data.sql
 nodemon server.js 
 ```
-This will start the server on port 3001
 
 3. cd into the "frontend" directory, install required packages, then start the app
 
@@ -29,7 +28,6 @@ cd frontend
 npm install
 npm start
 ```
-This will run the app on http://localhost:3000
 
 ## Running Tests
 ```
