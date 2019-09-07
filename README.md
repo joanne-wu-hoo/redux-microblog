@@ -2,7 +2,8 @@
 
 Blogging app built with **React** and **Redux** 
 
-Key learnings: using **Redux-Thunk to handle asychronous actions**
+Key learnings:
+* Using **Redux-Thunk to handle asychronous actions**
 
 Notes:
 * Backend code provided by [Rithm School](https://www.rithmschool.com/). 
