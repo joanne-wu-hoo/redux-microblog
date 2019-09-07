@@ -36,9 +36,9 @@ jest
 cd frontend
 npm test
 ```
-### App Information
+## App Information
 
-## Component Architecture
+### Component Architecture
 ```
 App
 ├─┬ components/Home
