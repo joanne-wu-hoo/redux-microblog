@@ -1,11 +1,12 @@
 # Microblog
 
-Blogging app built with **React** and **Redux** 
+Blogging app built with React and Redux 
 
-Key learnings:
-* Using **Redux-Thunk to handle asychronous actions**
+### Key learnings:
+* Using Redux-Thunk to handle asychronous actions
+* Using client side routing
 
-Backend code provided by [Rithm School](https://www.rithmschool.com/). Pair programmed with [Emi Tsukuda](https://github.com/emitamago).
+_Backend code provided by [Rithm School](https://www.rithmschool.com/). Pair programmed with [Emi Tsukuda](https://github.com/emitamago)._
 
 ## Getting Started
 
