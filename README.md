@@ -4,7 +4,7 @@ Blogging app built with React and Redux
 
 ### Key learnings:
 * Using Redux-Thunk to handle asychronous actions
-* Using client side routing
+* The benefits of normalizing state shape (to simplify reducer logic, prevent unnecessary re-renders, and improve performance)
 
 _Backend code provided by [Rithm School](https://www.rithmschool.com/). Pair programmed with [Emi Tsukuda](https://github.com/emitamago)._
 
